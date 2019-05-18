@@ -1,0 +1,16 @@
+<div class="container" style="padding: 6px">
+  <h3>Explorar</h3>
+  <div class="row mt-3">
+    <div class="col-md-3" *ngFor='let sof of list'>
+      <div class="card">
+        <div class="card-block">
+          <img src="{{ sof.url }}" alt="" class="card-img-top" style="width: 14rem;">
+          <div class="card-body">
+            <h5 class="card-title"> {{ sof.nombre }} </h5>
+            <p class="card-text"> {{ sof.descripcion }} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
