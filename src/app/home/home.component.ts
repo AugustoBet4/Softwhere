@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { FirebaseAuth } from '@angular/fire';
+import { SoftwheresService } from '../service/softwheres.service';
+import { Softwhere } from '../model/softwhere';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +11,21 @@ import { FirebaseAuth } from '@angular/fire';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService) {}
+  list: Softwhere[];
+  user = JSON.parse(localStorage.getItem('user'));
+  
+  constructor(private loginService: LoginService, private softService: SoftwheresService) {}
 
   ngOnInit() {
+    this.softService.getMine(this.user).subscribe(res => {
+      console.log(res);
+      this.list = res.map(item =>{
+        return{
+          id: item.payload.doc.id,
+          ...item.payload.doc.data()
+        } as Softwhere;
+      })
+    });
   } 
 
-  user = JSON.parse(localStorage.getItem('user'))
 }

@@ -13,8 +13,10 @@ import { Softwhere } from '../model/softwhere';
 export class ExplorarComponent implements OnInit {
 
   list: Softwhere[];
+  user = JSON.parse(localStorage.getItem('user'));
   
-  constructor(private loginService: LoginService, private firestore: AngularFirestore, private softService: SoftwheresService) { }
+  constructor(private loginService: LoginService, private firestore: AngularFirestore, private softService: SoftwheresService) {
+  }
   
   ngOnInit() {
     this.softService.getAll().subscribe(res => {
@@ -26,5 +28,10 @@ export class ExplorarComponent implements OnInit {
         } as Softwhere;
       })
     });
+  }
+
+  onSubmit(user , sof) {
+    let data = Object.assign({}, sof);
+    this.softService.onSubmit(user, data);
   }
 }
